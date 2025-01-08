@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Code</title>
+    <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://kit.fontawesome.com/66aa7c98b3.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -41,14 +41,14 @@
                     <div>
                         <h1 class="about-heading">About Me</h1>
                     </div>
-                    <img src="https://i.postimg.cc/Hx4nChpH/fbavatar-1630400663387-6838396024049256103.png" alt="image" />
+                    <img src="ashad.png" alt="image"/>
                     <p>
-                        I am 21 year old, B-Tech CS student studied at Arniko Awasiya highier Secondary school and I am currently doing my B-Tech at sri venkateshwara collage of engineering and technology. I really enjoy solving problems as well as making things pretty and easy
+                        I am 21 year old, B-Tech CS student studied at Arniko Awasiya highier Secondary school and I am currently doing my B-Tech under JNTU Anantapur. I really enjoy solving problems as well as making things pretty and easy
                         to use. I can't stop learning new things; the more, the better.
                     </p>
                     <div class="work-arrow">
                         <p>
-                            <a href="#my-works">Check out my work <i class="fas fa-arrow-down"></i></a>
+                            <a href="#my-works">Check out my work<i class="fas fa-arrow-down"></i></a>
                         </p>
                     </div>
                 </div>
@@ -63,26 +63,37 @@
                                     <span>HTML</span>
                                 </div>
                                 <div class="progress-line"><span class="html"></span></div>
+
                                 <div class="bar">
                                     <div class="info">
                                         <span>CSS</span>
                                     </div>
                                     <div class="progress-line"><span class="css"></span></div>
+
                                     <div class="bar">
                                         <div class="info">
-                                            <span>BOOTSTRAP</span>
+                                            <span>JAVA</span>
                                         </div>
-                                        <div class="progress-line"><span class="bootstrap"></span></div>
+                                        <div class="progress-line"><span class="java"></span></div>
+
                                         <div class="bar">
                                             <div class="info">
                                                 <span>JAVASCRIPT</span>
                                             </div>
                                             <div class="progress-line"><span class="javascript"></span></div>
+
                                             <div class="bar">
                                                 <div class="info">
                                                     <span>C Programming</span>
                                                 </div>
                                                 <div class="progress-line"><span class="c"></span></div>
+                                            
+                                                <div class="bar">
+                                                    <div class="info">
+                                                        <span>python Programming</span>
+                                                    </div>
+                                                <div class="progress-line"><span class="python"></span></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -171,9 +182,49 @@
             </div>
         </div>
     </div>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <div id="input-area">
+            <input type="text" id="userInput" placeholder="Type your message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            const messagesDiv = document.getElementById('messages');
+    
+            // Display user message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.textContent = `You: ${userInput}`;
+            messagesDiv.appendChild(userMessageDiv);
+    
+            // Send to server
+            const response = await fetch('http://localhost:3000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userInput })
+            });
+    
+            const data = await response.json();
+    
+            // Display bot reply
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.textContent = `Bot: ${data.reply}`;
+            messagesDiv.appendChild(botMessageDiv);
+    
+            // Clear input
+            document.getElementById('userInput').value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the latest message
+        }
+    </script>
     <!-- JAVASCRIPT -->
     <script src="app.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="server.js"></script>
 </body>
 
 </html>
